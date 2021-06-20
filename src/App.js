@@ -1,13 +1,16 @@
 import "./App.css";
-import Filter from "./Filter";
+import FilterByRate from "./FilterByRate";
 import React, {useState} from "react";
 import {Button, Form, Modal} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieList from "./MovieList";
+import FilterByName from "./FilterByName"
 
 
 function App() {
-    const [sortRate, setSort] = useState(true)
+    const [filter, setFilter] = useState("noFilter")
+
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -50,13 +53,18 @@ function App() {
         setMovie({...movie, imageLink: e.target.value});
     }
 
-
-    function sortByRate() {
-        setSort(!sortRate);
+    function noSort() {
+        setFilter("noFilter");
     }
 
+    function sortByRate() {
+       setFilter("sortByRate");
+    }
 
-    console.log(sortRate);
+    function sortByName() {
+        setFilter("sortByName");
+    }
+
 
     return (
         <div className="App">
@@ -117,13 +125,19 @@ function App() {
                     </div>
                     <div className="col-9 d-flex justify-content-end">
                         <Button onClick={sortByRate} id="buttonSortByRate"
-                                className='btn-dark btn-lg btn-secondary add'>Sort by
+                                className='btn-dark  btn-secondary filterButton'>Sort by
                             rate</Button>
+                        <Button onClick={sortByName} id="buttonSortByName"
+                                className='btn-dark  btn-secondary filterButton'>Sort by
+                            Title</Button>
+                        <Button onClick={noSort} id="buttonNoFilter"
+                                className='btn-light  btn-secondary filterButton'>No filter</Button>
                     </div>
                 </div>
             </div>
-            {sortRate === true && <MovieList movies={movies}/>}
-            {sortRate === false && <Filter movies={movies}/>}
+            {filter === "noFilter" &&  <MovieList movies={movies}/>}
+            {filter === "sortByRate"  &&  <FilterByRate movies={movies}/>}
+            {filter === "sortByName"  &&  <FilterByName movies={movies}/>}
         </div>
     );
 }

@@ -58,7 +58,13 @@ img {
     margin: 20px;
     width: 200px;
     height: 50px;
-
+}
+.filterButton{
+    font-family: 'Lobster', cursive;
+    font-size: large;
+    margin: 10px;
+    width: 130px;
+    height: 40px;
 }
 
 .modalTitle{
